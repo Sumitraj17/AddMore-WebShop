@@ -12,12 +12,15 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatListModule} from '@angular/material/list';
 import { CurrencyPipe } from '@angular/common';
-
+import { RouterOutlet,RouterLink } from '@angular/router';
+import { routes } from '../app.routes';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
+    RouterLink,
+    RouterOutlet,
     CurrencyPipe,
     MatSidenavModule,
     MatGridListModule,
