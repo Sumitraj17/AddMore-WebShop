@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatMenuModule} from '@angular/material/menu';
@@ -13,13 +13,19 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatListModule} from '@angular/material/list';
 import { CurrencyPipe } from '@angular/common';
 import { RouterOutlet,RouterLink } from '@angular/router';
-import { routes } from '../app.routes';
+import { CommonModule } from '@angular/common';
+import { Cart,Cartinterface } from '../Models/cart-interface';
+import { CartComponent } from '../Pages/cart/cart.component';
+import { CartService } from '../services/cart.service';
+
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     RouterLink,
+    CartComponent,
+    CommonModule,
     RouterOutlet,
     CurrencyPipe,
     MatSidenavModule,
@@ -39,5 +45,26 @@ import { routes } from '../app.routes';
   styles: ``
 })
 export class HeaderComponent {
+  private _cart: Cart = {items:[]};
+  itemsquantity = 0;
 
+  @Input()
+  get cart():Cart{
+    return this._cart;
+  }
+  set cart(cart:Cart){
+    this._cart = cart;
+
+    this.itemsquantity = cart.items
+    .map((item)=> item.quantity)
+    .reduce((prev,curr)=> prev+curr,0);
+  }
+  constructor(private cartservice: CartService){}
+  getTotal(item:Array<Cartinterface>):number{
+    return this.cartservice.getTotal(item);
+  }
+  removeitems():void{
+    this.cartservice.removeitems();
+    this.itemsquantity=0;
+  }
 }

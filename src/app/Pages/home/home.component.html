@@ -6,7 +6,7 @@
         <app-products-header class="p-6 font-bold mx-auto " (columnemitter)="oncolumnchangeemit($event)"></app-products-header>
         <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rows"  >
             <mat-grid-tile *ngFor="let product of item">
-                <app-product-box class="w-full" [fullWidthMode]="cols === 1" [moreitems]="product"></app-product-box>
+                <app-product-box (addtocart)="onaddtocart($event)" class="w-full" [fullWidthMode]="cols === 1" [moreitems]="product" ></app-product-box>
             </mat-grid-tile>
         </mat-grid-list>
     </mat-drawer-content>

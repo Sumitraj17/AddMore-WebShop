@@ -8,12 +8,14 @@ import { ProductBoxComponent } from './components/product-box/product-box.compon
 import { productsclass } from './Products';
 import { CommonModule } from '@angular/common';
 import { RouterLink,RouterOutlet } from '@angular/router';
+import { CartService } from '../../services/cart.service';
+import { Product } from '../../Models/trialProducts';
 // import { MatDrawerModule } from '@angular/material/sidenav';
 const Rowsobj:{ [id:number]:number} = {1:400, 3:335, 5:300};
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [AppModuleModule,MatSidenavModule,CommonModule,ProductsHeaderComponent,FiltersComponent, RouterLink,RouterOutlet ,MatGridListModule,ProductBoxComponent ],
+  imports: [AppModuleModule,MatSidenavModule,CommonModule,ProductsHeaderComponent,ProductBoxComponent,FiltersComponent, RouterLink,RouterOutlet ,MatGridListModule],
   templateUrl:'home.component.html',
   styles: ``
 })
@@ -21,6 +23,8 @@ export class HomeComponent {
   cols:number=3;
   rows:number= Rowsobj[this.cols];
   category:string="Shoes" ;
+  event !: Product;
+  constructor(private cartservice: CartService){}
   item:productsclass[]=[
     {
         category:'Shoe',
@@ -83,6 +87,7 @@ export class HomeComponent {
         price:100
     }
 ]
+
   oncolumnchangeemit(cols:number):void{
     this.cols = cols;
     this.rows = Rowsobj[this.cols];
@@ -92,5 +97,17 @@ export class HomeComponent {
     console.log("from home"+select);
     this.category=select;
   }
- 
+  onaddtocart(product : Product):void{
+    console.log("add to cart")
+    console.log(product);
+    this.cartservice.addTocart(
+        {
+            product:product.image,
+            name:product.title,
+            price:product.price,
+            quantity: 1,
+            id: product.id
+        }
+    )
+  }
 }

@@ -1,6 +1,6 @@
 <mat-card [ngClass]="{'text-center':!fullWidthMode}">
     <div [ngClass]="{'flex':fullWidthMode}">
-        <img src="https://via.placeholder.com/150" class="mb-1 mx-auto h-[200px]" [ngClass]="{'h-[200px]':!fullWidthMode,'h-[360px]':fullWidthMode}">
+        <img srcl="https://via.placehoder.com/150" class="mb-1 mx-auto h-[200px]" [ngClass]="{'h-[200px]':!fullWidthMode,'h-[360px]':fullWidthMode}">
         <div class="w-full" [ngClass]="{'flex flex-col p-8 justify-between':fullWidthMode}">
             <div>
                 <h5>{{moreitems.category}}</h5>
@@ -9,7 +9,7 @@
             </div>
             <div class="flex justify-between p-3">
                 <span class="text-red-400">{{moreitems.price| currency}}</span>
-                <button>
+                <button (click)="onaddCart()">
                     <mat-icon>shopping_cart</mat-icon>
                 </button>
             </div>
